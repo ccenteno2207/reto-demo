@@ -3,7 +3,7 @@
 FROM openjdk:17-jdk-slim AS builder
 
 # Variables de Maven
-ENV MAVEN_VERSION=3.6.9
+ENV MAVEN_VERSION=3.9.6
 ENV MAVEN_HOME=/opt/apache-maven-${MAVEN_VERSION}
 ENV PATH=$MAVEN_HOME/bin:$PATH
 
