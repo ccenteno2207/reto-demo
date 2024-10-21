@@ -1,5 +1,6 @@
 # Etapa 1: Construcción - ccenteno
-FROM maven:3.8.5-openjdk-17 AS builder
+# FROM maven:3.8.5-openjdk-17 AS builder
+FROM openjdk:17-jdk-slim AS builder
 
 # Variables de Maven
 ENV MAVEN_VERSION=3.6.9
