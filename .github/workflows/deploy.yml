@@ -52,3 +52,6 @@ jobs:
           context: .
           push: true
           tags: ${{secrets.DOCKER_USERNAME}}/${{vars.DOCKER_REPOSITORI}}:${{github.sha}}
+# Step para verificar la versión de Maven
+      - name: Check Maven version
+        run: mvn -version
