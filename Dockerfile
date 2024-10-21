@@ -4,15 +4,21 @@ FROM openjdk:17-jdk-slim AS builder
 
 # Variables de Maven
 ENV MAVEN_VERSION=3.6.9
+ENV MAVEN_HOME=/opt/apache-maven-${MAVEN_VERSION}
+ENV PATH=$MAVEN_HOME/bin:$PATH
 
 # Instalar Maven 3.6.9 manualmente
-RUN apt-get update && apt-get install -y curl tar \
+RUN apt-get update && apt-get install -y \
+    curl \
+    tar \
+    unzip \
+    ca-certificates \
     && curl -fsSL https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz | tar -xz -C /opt \
     && ln -s /opt/apache-maven-${MAVEN_VERSION}/bin/mvn /usr/bin/mvn \
     && rm -rf /var/lib/apt/lists/*
 
 # Verificar la instalación de Maven
-RUN mvn -version
+RUN mvn -version && java -version
 
 WORKDIR /app
 COPY pom.xml .
