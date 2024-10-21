@@ -13,9 +13,11 @@ RUN apt-get update && apt-get install -y \
     tar \
     unzip \
     ca-certificates \
-    && curl -fsSL https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz | tar -xz -C /opt \
-    && ln -s /opt/apache-maven-${MAVEN_VERSION}/bin/mvn /usr/bin/mvn \
     && rm -rf /var/lib/apt/lists/*
+    
+RUN curl -fsSL https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz | tar -xz -C /opt \
+    && ln -s /opt/apache-maven-${MAVEN_VERSION}/bin/mvn /usr/bin/mvn 
+#    && rm -rf /var/lib/apt/lists/*
 
 # Verificar la instalación de Maven
 RUN mvn -version && java -version
@@ -26,11 +28,9 @@ COPY mvnw mvnw.cmd .
 
 RUN chmod +x mvnw
 RUN mvn wrapper:wrapper
-
-
 RUN ./mvnw dependency:go-offline
-COPY src ./src
 
+COPY src ./src
 RUN ./mvnw clean package -DskipTests
 
 FROM openjdk:17-jdk-slim
