@@ -1,6 +1,18 @@
 # Etapa 1: Construcción - ccenteno
 FROM maven:3.8.5-openjdk-17 AS builder
 
+# Variables de Maven
+ENV MAVEN_VERSION=3.6.9
+
+# Instalar Maven 3.6.9 manualmente
+RUN apt-get update && apt-get install -y curl tar \
+    && curl -fsSL https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz | tar -xz -C /opt \
+    && ln -s /opt/apache-maven-${MAVEN_VERSION}/bin/mvn /usr/bin/mvn \
+    && rm -rf /var/lib/apt/lists/*
+
+# Verificar la instalación de Maven
+RUN mvn -version
+
 WORKDIR /app
 COPY pom.xml .
 COPY mvnw mvnw.cmd .
