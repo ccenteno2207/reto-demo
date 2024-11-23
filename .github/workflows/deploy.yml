@@ -56,17 +56,17 @@ jobs:
       - name: Check Maven version
         run: mvn -version
 
-      # 5. Login en Azure Container Registry (ACR)
-      - name: Login to Azure Container Registry
-        uses: azure/docker-login@v1
-        with:
-          login-server: ${{ secrets.AZURE_ACR_SERVER }}
-          username: ${{ secrets.AZURE_ACR_USERNAME }}
-          password: ${{ secrets.AZURE_ACR_PASSWORD }}
+      # # 5. Login en Azure Container Registry (ACR)
+      # - name: Login to Azure Container Registry
+      #   uses: azure/docker-login@v1
+      #   with:
+      #     login-server: ${{ secrets.AZURE_ACR_SERVER }}
+      #     username: ${{ secrets.AZURE_ACR_USERNAME }}
+      #     password: ${{ secrets.AZURE_ACR_PASSWORD }}
 
-      # 6. Push de la imagen a Azure Container Registry
-      - name: Push Docker image to ACR
-        run: |
-          docker tag ${{ secrets.DOCKER_USERNAME }}/${{ vars.DOCKER_REPOSITORI }}:${{ github.sha }} \
-            ${{ secrets.AZURE_ACR_SERVER }}/${{ vars.DOCKER_REPOSITORI }}:${{ github.sha }}
-          docker push ${{ secrets.AZURE_ACR_SERVER }}/${{ vars.DOCKER_REPOSITORI }}:${{ github.sha }}
+      # # 6. Push de la imagen a Azure Container Registry
+      # - name: Push Docker image to ACR
+      #   run: |
+      #     docker tag ${{ secrets.DOCKER_USERNAME }}/${{ vars.DOCKER_REPOSITORI }}:${{ github.sha }} \
+      #       ${{ secrets.AZURE_ACR_SERVER }}/${{ vars.DOCKER_REPOSITORI }}:${{ github.sha }}
+      #     docker push ${{ secrets.AZURE_ACR_SERVER }}/${{ vars.DOCKER_REPOSITORI }}:${{ github.sha }}
